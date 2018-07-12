@@ -1,3 +1,11 @@
 api_platform:
+    title: 'My Application'
+    description: 'Application description '
+    version: 1.0.0
     mapping:
         paths: ['%kernel.project_dir%/src/Entity']
+    swagger:
+        api_keys:
+            apiKey:
+               name: Authorization
+               type: header
