@@ -1,15 +1,55 @@
 security:
+    # Nous commencons par déclarer un encodeur pour les utilisateur de type FSO\UserBundle\Model\UserInterface
+    # En fait la classe d'utilisateur que nous avons créé précédemment implémente cette interface à travers la
+    # classe BaseUser. C'est l'encodeur qui sera utilisé par FSOUserBundle pour faire correspondre les mots de
+    # passe rentrés par les utilisateurs avec celui stoké en base de données
     encoders:
         FOS\UserBundle\Model\UserInterface: sha512
+
+    role_hierarchy:
+        ROLE_COLLAB:  ROLE_USER
+        ROLE_ADMIN:   ROLE_COLLAB
+
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    # Nous déclarons ensuite un fornisseur, c'est à dire une source d'utilisateurs. Ces derniers seront
+    # stockés dans la base de données. Contrairement à in_memory, il faut faire appel à un service pour
+    # aller chercher les utilisateurs. Nous référencons le service grace à la clé id et le nom du service
+    # => fos_user.user_provider.username
     providers:
-        in_memory: { memory: ~ }
+        fos_userbundle:
+            id: fos_user.user_provider.username
+
     firewalls:
+        refresh:
+            pattern: ^/api/token/refresh
+            stateless: true
+            anonymous: true
+        login:
+            pattern:  ^/user/login
+            stateless: true
+            anonymous: true
+            provider: fos_userbundle
+            json_login:
+                check_path: /user/login_check
+                username_path: email
+                password_path: password
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+                require_previous_session: false
+
+        # Nous créons ensuite un pare-feu global pour toutes les URLs de l'application.
+        main:
+            pattern: ^/
+            provider: fos_userbundle
+            stateless: true
+            anonymous: true
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
+
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        main:
-            anonymous: true
 
             # activate different ways to authenticate
 
@@ -22,5 +62,5 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+       - { path: ^/api/token/refresh, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+       - { path: ^/api, role: IS_AUTHENTICATED_FULLY }
