@@ -1,18 +1,13 @@
 <?php
 
-namespace App\Entity;
+namespace App\Domain\Model;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use FOS\UserBundle\Model\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Core\Annotation\ApiResource;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @ApiResource(
- *
- * )
+ * @ORM\Entity()
  */
 class User extends BaseUser
 {
@@ -22,7 +17,7 @@ class User extends BaseUser
      * @ORM\Column(type="guid")
      */
     protected $id;
-    
+
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -37,6 +32,14 @@ class User extends BaseUser
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $birthdate;
+
+    /*public function __construct(string $username, string $email, string $password)
+    {
+        echo'ivi'; die;
+        $this->username = $username;
+        $this->email = $email;
+        $this->password = $password;
+    }*/
 
     public function getId(): ?string
     {
