@@ -21,4 +21,5 @@ La couche Domain es le cœur de votre application "logiciel" et contient la logi
 
 ### Infrastructure
 
-L'infrastructure prends en charge les trois couches.
+L'infrastructure prends en charge prends en charge le stockage de données ou l'accès à la base de données est une 
+fonctionnalité réservée à cette couche .
