@@ -8,5 +8,5 @@ interface UserFacadeInterface
 {
     public function create(UserDto $data): UserDto;
     public function getAll(): array;
-    public function getTicketById(String $id): UserDto;
+    public function getUserById(String $id): UserDto;
 }

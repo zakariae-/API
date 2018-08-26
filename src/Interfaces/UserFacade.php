@@ -32,7 +32,7 @@ class UserFacade extends Controller implements UserFacadeInterface
         return UserAssembler::getUserDtoAsList($users);
     }
 
-    public function getTicketById(String $id): UserDto
+    public function getUserById(String $id): UserDto
     {
         $user = $this->userService->getUserById($id);
 

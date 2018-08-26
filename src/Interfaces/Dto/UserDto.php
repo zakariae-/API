@@ -13,6 +13,19 @@ use Symfony\Component\Validator\Constraints as Assert;
  *              "method"="POST",
  *              "path"="/user",
  *              "controller"="App\Interfaces\UserFacade::create"
+ *          },
+ *          "get"={
+ *              "method"="GET",
+ *              "path"="/user",
+ *              "controller"="App\Interfaces\UserFacade::getAll"
+ *          }
+ *     },
+ *     itemOperations={
+ *          "get"={
+ *              "method"="GET",
+ *              "path"="/user/{id}.{_format}",
+ *              "controller"="App\Interfaces\UserFacade::getTicketById",
+ *              "defaults"={"_api_receive"=false}
  *          }
  *     }
  * )
