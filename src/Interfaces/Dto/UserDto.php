@@ -24,7 +24,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *          "get"={
  *              "method"="GET",
  *              "path"="/user/{id}.{_format}",
- *              "controller"="App\Interfaces\UserFacade::getTicketById",
+ *              "controller"="App\Interfaces\User\GetUserByIdController",
  *              "defaults"={"_api_receive"=false}
  *          }
  *     }
