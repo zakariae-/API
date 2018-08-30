@@ -2,6 +2,8 @@
 
 namespace App\Application\Query\User\FindById;
 
+use App\Domain\ValueObject\Uuid;
+
 class FindByIdQuery
 {
     /**
@@ -13,6 +15,6 @@ class FindByIdQuery
      */
     public function __construct(string $id)
     {
-        $this->id = $id;
+        $this->id = Uuid::fromString($id);
     }
 }

@@ -26,7 +26,7 @@ class UserRepositoryDoctrine extends EntityRepository implements UserRepositoryI
     {
         $user = $this->find($id);
         if ($user === NULL) {
-            throw new UserNotFoundException(sprintf('The ticket with ID "%s" does not exist.', $id));
+            throw new UserNotFoundException(sprintf('The User with ID "%s" does not exist.', $id));
         }
         return $user;
     }
